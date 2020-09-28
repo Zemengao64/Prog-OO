@@ -1,0 +1,31 @@
+EXERCÍCIO 3
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/* IMPRIMIR O FATORIAL DE UM NUMERO LIDO NO TECLADO */
+
+package com.mycompany.fat;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Fat {
+    public static void main (String[] arg){
+        Scanner entra = new Scanner (System.in);
+        System.out.println("Entre um numero inteiro: ");
+        int num;
+        int fat = 1;
+        num = entra.nextInt();
+        for (int i=num; i>=1; i--){
+            fat = fat * i;
+        }
+        System.out.println("O fatorial de "+num+" é: "+fat);        
+    }
+}
