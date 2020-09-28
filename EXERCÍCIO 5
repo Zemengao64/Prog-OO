@@ -1,0 +1,39 @@
+
+EXERCÍCIO 5
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.parouimpar;
+
+import java.util.Scanner;
+
+/**
+ Escreva um programa que, dada uma variável x com algum valor inteiro, temos um 
+ novo x de acordo com a seguinte regra:
+se x é par, x = x / 2
+se x é impar, x = 3 * x + 1
+imprime x
+O programa deve parar quando x tiver o valor final de 1
+
+ * @author Belmont
+ */
+public class NewClass {
+    public static void main (String[] arg){
+        Scanner entra = new Scanner (System.in);
+        System.out.println("Entre um número inteiro: ");
+        int x;
+        x = entra.nextInt();
+        while (x > 1){           
+            if (x%2 == 0){
+                x = x/2;
+            }
+            else{
+                x = 3*x + 1;
+            }
+            System.out.print(" "+x);
+        }        
+    }
+}
