@@ -1,0 +1,21 @@
+/*  EXERCÍCIO 1
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.somaate1000;
+
+/**IMPRIMIR A SOMA DOS NÚMEROS ATÉ 1000
+ *
+ * @author Belmont
+ */
+public class SomaAte1000 {
+    public static void main(String[] args){
+        int x = 0;
+        for (int i=0; i<= 1000; i++){
+            x = x + i;
+        }
+        System.out.println("A soma de 1 até 1000 é: "+x);
+    }
+    
+}
