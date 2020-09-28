@@ -1,0 +1,106 @@
+EXERCÍCIO 6
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.vetoresordenados;
+
+/**
+ *Crie dois vetores de 50 posições com valores inteiros aleatórios, ordene cada 
+ * vetor individualmente, e combine os dois vetores gerando um novo vetor de 
+ * 100 posições, de forma que esse novo vetor já seja criado ordenado
+ * 
+ * @author Belmont
+ */
+public class VetorOrdenado {
+    public static void main (String[] arg){
+        int tam = 100;
+        int siz = tam/2;
+        double x, y;
+        int num, ind0, ind1, i, j, k;
+        int[][] vet = new int [2][siz];
+        int [] vetfim = new int[tam];
+        
+        /* MOBILIANDO VETORES *************************************************/
+        for (j=0; j<2; j++){ 
+            System.out.println();
+            System.out.println("vetor "+(j+1)+": ");
+            for (i=0; i<siz; i++){
+                x = Math.random();
+                y = x * 1000;
+                vet[j][i] = (int) y;
+                System.out.print(" "+vet[j][i]);
+                if (i%25==0 && i>0) System.out.println();
+            }
+            System.out.println();
+        }
+        System.out.println();
+        
+        
+        /* BUBBLE SORT ********************************************************/
+        for (j=0; j<2; j++){          
+            int aux; 
+            for (k=1; k<siz; k++){
+                boolean tr = false;
+                for (i=0; i<(siz-k); i++){
+                    if (vet[j][i] > vet[j][i+1]){
+                        aux = vet[j][i];
+                        vet[j][i] = vet[j][i+1];
+                        vet[j][i+1] = aux;
+                        tr = true;
+                    }
+                }
+                if(!tr) break;                
+            }
+        }
+        
+        /* IMPRIME VETORES INDEXADOS*******************************************/
+        for (j=0; j<2; j++){ 
+            System.out.println();
+            System.out.println("Vetor indexado "+(j+1)+": ");
+            for (i=0; i<siz; i++){
+                System.out.print(" "+vet[j][i]);
+                if (i%25==0 && i>0) System.out.println(); 
+            }
+            System.out.println();
+        }
+        System.out.println();
+        
+        
+        /* CONSTROI VETOR FINAL************************************************/
+        ind0 = ind1 = 0;
+        i = k = 0;
+        while(ind0<siz && ind1<siz){            //SELECIONA NÚMEROS DOS VETORES
+            if (vet[0][ind0] < vet[1][ind1]){
+                vetfim[i]=vet[0][ind0];
+                ind0++;                    
+            }
+            else{
+                vetfim[i]=vet[1][ind1];
+                ind1++;         
+            }
+            i++;
+        }
+        if (ind0==siz && ind1<siz){             //CONCATENA RESTO DO VETOR     
+            for (k=ind1; k<siz; k++){
+                vetfim[i] = vet[1][k];
+                i++;
+            }
+        }
+        if (ind1==siz && ind0<siz){
+            for (k=ind0; k<siz; k++){
+                vetfim[i] = vet[0][k];
+                i++;
+            }
+        }
+
+        System.out.print("Vetor final: ");    //IMPRIME VETOR FINAL
+        for (i=0; i<tam; i++){
+            if (i%20==0) System.out.println();
+            System.out.print(" "+vetfim[i]);
+            
+        }
+    }
+}
