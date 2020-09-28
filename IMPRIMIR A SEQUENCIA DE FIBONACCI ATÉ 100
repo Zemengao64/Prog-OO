@@ -1,0 +1,27 @@
+EXERCÍCIO 4
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package com.mycompany.fibonacci;
+
+/* IMPRIMIR A SEQUENCIA DE FIBONACCI ATÉ 100
+ *
+ * @author Belmont
+*/
+
+public class Fibonacci {
+    public static void main (String[] arg){
+        int x = 0;
+        int y = 1;
+        System.out.print(x+", ");
+        while (y<100){
+            System.out.print(y+", ");
+            y = x + y;
+            x = y-x;
+        }
+    }
+    
+}
