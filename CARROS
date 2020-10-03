@@ -1,0 +1,137 @@
+// LOCADORA
+
+public class Carro{
+  private String placa;
+  private String marca;
+  private String modelo;
+  private int categoria;
+  private boolean status;
+  private int diaSaida, mesSaida, anoSaida;
+  private int diadevolve, mesDevolve, anoDevolve;
+  private double diaria;
+  private Cliente cliente;
+  
+  
+  public String getPlaca(){
+    Retorna a placa
+  }  
+  public String getMarca(){
+    Retorna a marca
+  }
+  public String getModelo(){
+    Retorna o modelo
+  }
+  public String getCategoria(){
+    Retorna a categoria
+  }
+  public String getCliente(){
+    Retorna o cliente (se estiver alugado)
+  }
+  public double getDiaria(){
+    retorna o valor da diária
+  }
+  
+  public void setPlaca(){
+    cadastra a placa
+  }
+  public void setMarca(){
+    cadastra a marca
+  }
+  public void setModelo(){
+    cadastra o modelo
+  }
+  public void setCategoria(){
+    cadastra a categoria
+  }
+  public void setStatus
+    muda o status do veículo qdo devolvido ou alugado
+  }
+  
+  public void alugaCarro (int categoria){
+    busca carros com status disponivel na categoria pedida pela cliente
+    cadastra cliente
+    registra data
+    muda status para alugado
+  }
+  
+  public void devolveCarro (String placa)
+     Verifica se o veiculo pertence a locadora
+     registra data da chegada
+  }
+  
+  public void diasAlugado (String placa){
+    calcula os dias alugados e mostra esse valor e o valor a ser pago
+  }
+  
+  public void consultaDisponiveis(boolean true){
+    Retorna veiculos disponiveis para aluguel
+  }
+}
+
+//==========================================================================================
+
+REVENDEDORA
+
+public class Carro{
+  private String placa;
+  private String marca;
+  private String modelo;
+  private String renavan;
+  private boolean status;
+  private int anoModelo, anoFabricacao
+  private double preco;
+
+  public String getPlaca(){
+    Retorna a placa
+  }  
+  public String getMarca(){
+    Retorna a marca
+  }
+  public String getModelo(){
+    Retorna o modelo
+  }
+  public String getRenavan(){
+    Retorna o renavan
+  }
+  public double getPreco(){
+    retorna o preço do carro
+  }
+  public int getAnoFabricacao(){
+    Retorna ano de fabracação
+  }
+  public int getAnoModelo(){
+    Retorna ano do modelo
+  }
+  
+  public void setPlaca(){
+    cadastra a placa
+  }
+  public void setMarca(){
+    cadastra a marca
+  }
+  public void setModelo(){
+    cadastra o modelo
+  }
+  public void setRenavan(){
+    cadastra o renavan (se tiver)
+  }
+  public void setAnoFabricacao(){
+    Cadastra o ano de fabricação
+  }
+  public void setAnoModelo(){
+    Cadastra o ano do modelo
+  }
+  
+  public void consultaEstoque (){
+    mostra todo o estoque com status de disponivel 
+  }
+  public void consulta modelo (String modelo){
+    busca e mostra os veiculos com status de disponivel para o modelo
+  }
+  public void consulta anoFabricacao (int anoFabricacao){
+    Busca e mostra os veiculos com stauts de disponivel fabicados no ano pedido
+  }
+  public void consulta anoModelo (int anoModelo){
+    Busca e mostra os veiculos com stauts de disponivel no modelo do ano
+  }
+ 
