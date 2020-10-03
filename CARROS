@@ -11,6 +11,12 @@ public class Carro{
   private double diaria;
   private Cliente cliente;
   
+  Carro {String placa, String marca, String modelo, String categoria){
+    this.placa = placa;
+    this.modelo = modelo;
+    this.categoria = categoria;
+    this.status = true;
+  }
   
   public String getPlaca(){
     Retorna a placa
@@ -31,32 +37,30 @@ public class Carro{
     retorna o valor da diária
   }
   
-  public void setPlaca(){
-    cadastra a placa
-  }
-  public void setMarca(){
-    cadastra a marca
-  }
-  public void setModelo(){
-    cadastra o modelo
-  }
-  public void setCategoria(){
-    cadastra a categoria
-  }
-  public void setStatus
+  private void setStatus
     muda o status do veículo qdo devolvido ou alugado
+  }
+  private void setCliente(){
+    Cadastra o cliente
   }
   
   public void alugaCarro (int categoria){
     busca carros com status disponivel na categoria pedida pela cliente
     cadastra cliente
+    registra a placa do veiculo escolhidp
     registra data
-    muda status para alugado
+    muda status para false (carro indisponivel para aluguel)
   }
   
   public void devolveCarro (String placa)
      Verifica se o veiculo pertence a locadora
      registra data da chegada
+     verifica necessidade de MNT do veiculo
+     se !MNT
+        muda status para true (carro disponivel para aluguel)
+     se MNT
+        mantem status indisponivel
+        Oficina
   }
   
   public void diasAlugado (String placa){
@@ -66,6 +70,8 @@ public class Carro{
   public void consultaDisponiveis(boolean true){
     Retorna veiculos disponiveis para aluguel
   }
+  
+  
 }
 
 //==========================================================================================
@@ -73,13 +79,26 @@ public class Carro{
 REVENDEDORA
 
 public class Carro{
-  private String placa;
+  privae String placa;
   private String marca;
   private String modelo;
   private String renavan;
   private boolean status;
+  private String cor;
   private int anoModelo, anoFabricacao
   private double preco;
+  private static int numEstoque;
+  
+  Carro {String marca, String modelo, int anoFrabicacao, int anoModelo, String cor, int numEstoque){
+    this.placa = placa;
+    this.modelo = modelo;
+    this.anoFabricaca = anoFabricacao;
+    this.anoModelo = anoModelo;
+    this.cor = cor;
+    this.status = true;
+    this.numEstoque = Carro.numEstoque;
+    Carro.numEstoque++
+  }
 
   public String getPlaca(){
     Retorna a placa
@@ -104,27 +123,22 @@ public class Carro{
   }
   
   public void setPlaca(){
-    cadastra a placa
-  }
-  public void setMarca(){
-    cadastra a marca
-  }
-  public void setModelo(){
-    cadastra o modelo
+    cadastra a placa (se tiver)
   }
   public void setRenavan(){
     cadastra o renavan (se tiver)
   }
-  public void setAnoFabricacao(){
-    Cadastra o ano de fabricação
+  public void setPreco(){
+    cadastra o preço
   }
-  public void setAnoModelo(){
-    Cadastra o ano do modelo
+  public void setStatus(int numEstoque)
+    Busca o veiculo com o numEstoque e altera seu status
   }
-  
   public void consultaEstoque (){
     mostra todo o estoque com status de disponivel 
   }
+  
+  
   public void consulta modelo (String modelo){
     busca e mostra os veiculos com status de disponivel para o modelo
   }
@@ -134,4 +148,132 @@ public class Carro{
   public void consulta anoModelo (int anoModelo){
     Busca e mostra os veiculos com stauts de disponivel no modelo do ano
   }
+} 
+ ================================================================================
  
+ OFICINA MECÂNICA
+ 
+ public class Carro{
+    private String placa;
+    private String marca;
+    private String modelo;
+    private int anoModelo, anoFabricacao
+    private Cliente cliente;
+    private Peca [] pecas;
+    private Servico [] servicos;
+    private static int ordemDeSerico;
+    
+    Carro {String marca, String modelo, int anoFrabicacao, int anoModelo, String cor, int ordemDeSerico){
+      this.placa = placa;
+      this.modelo = modelo;
+      this.anoFabricaca = anoFabricacao;
+      this.anoModelo = anoModelo;
+      this.cor = cor;
+      this.status = true;
+      this.ordemDeSerico = Carro.ordemDeSerico;
+      Carro.ordemDeSerico++
+    }
+
+    public String getPlaca(){
+      Retorna a placa
+    }  
+    public String getMarca(){
+      Retorna a marca
+    }
+    public String getModelo(){
+      Retorna o modelo
+    }
+    public Cliente getCliente(){
+      Retorna o cliente
+    }
+    public int getAnoFabricacao(){
+      Retorna ano de fabracação
+    }
+    public int getAnoModelo(){
+      Retorna ano do modelo
+    }
+    public int getOrdemDeServico(){
+      Retorna o numero da ordem de serviço
+    }
+    
+    public void setPecas (Peca pecas, int ordemDeServico){
+      Adciona as pecas usadas na MNT
+    }
+    public void setServicos (Servico servicos, int ordemDeServico){
+      Adciona mão de obra usadas na MNT
+    }
+    private void setCliente(){
+      Cadastra o cliente
+    }
+    
+    public double entregaVeiculo (int ordemDeServico)
+      percorre o vetor peças para aquela ordem de serviço listando peças, preços e totalizando
+      percorre o vetor mão de obra para aquela ordem de serviço listando-as com preço e totalizando
+      finaliza a ordem de serviço imprimindo valoores a pagar e retornando este valor
+    }
+    
+    public void recebeVeiculo (Carro veiculo){
+      cadastra o cliente
+      
+    }
+ }
+ 
+============================================================================================
+
+DETRAN
+public class Carro{
+  privae String placa;
+  private String marca;
+  private String modelo;
+  private String renavan;
+  private Pessoa dono;
+  private boolean status;   // TRUE = OK  -  FALSE = roubado
+  private String cor;
+  private int anoModelo, anoFabricacao
+  
+  Carro {String marca, String modelo, int anoFrabicacao, int anoModelo, String cor, Pessoa dono){
+    this.placa = placa;
+    this.modelo = modelo;
+    this.anoFabricaca = anoFabricacao;
+    this.anoModelo = anoModelo;
+    this.cor = cor;
+    this.status = true;
+    this.dono = dono;
+  }
+  
+    public String getPlaca(){
+      Retorna a placa
+    }  
+    public String getMarca(){
+      Retorna a marca
+    }
+    public String getModelo(){
+      Retorna o modelo
+    }
+    public Pessoa getDono(){
+      Retorna o dono do carro 
+    }
+    public String getRenavan(){
+      Retorna o renavan
+    }
+    public int getAnoFabricacao(){
+      Retorna ano de fabracação
+    }
+    public int getAnoModelo(){
+      Retorna ano do modelo
+    }
+    
+    public void setPlaca (String renavan){
+      Artibui uma placa ao veiculo em caso de veiculo novo
+    }
+    private void setDono (String Placa){
+      atribui um dono ao veículo
+    } 
+    
+    public void pesquisaSituacao (String placa){
+      retorna status de um veiculo
+    } 
+    public void vendaVeiculo (String placa){
+      muda o dono do veículo com a placa recebida atraves de setDono
+    }
+      
