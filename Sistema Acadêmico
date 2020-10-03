@@ -1,0 +1,67 @@
+SISTEMA ACADÊMICO
+
+public class Aluno{
+  private Pessoa aluno;
+  private int matricula;
+  private Disciplina [] discCursadas;
+  private double [] notaDisciplina;
+  private Inscricao [] discIncritas;
+  private int totalCreditos;
+  private double cr;
+}
+  
+public class Professor{
+  private Pessoa professor
+  private int matricula
+  private String escola
+  private String departamento
+}
+
+public class Disciplina{
+  private String nomeDisciplina
+  private String codDisciplina
+  private String ementa
+  private Int creditos
+}
+
+public class Turma{
+  private string nomeTurma;
+  private string horario;
+  private Aluno [] alunos;
+  private Disciplina disc;
+  private double [][] nota;
+  private static int qtdade;
+  private int vagas;
+}
+   
+public class Inscricao{
+  private Aluno
+  private Turma [] cursando;
+}
+  
+Exibição do histórico do aluno
+  Método HISTÓRICO 
+    implementado na classe ALUNO retornando todas as cadeiras já cursadas, suas respectivas notas e o CR (outro método desta classe)
+    
+Cálculo da média do aluno em uma turma
+  Metodo mediaAluno
+    implementado na classe Turma
+    localiza o aluno no array de alunos da turma 
+    percorre o array de notas do referente ao aluno naquela turma
+    calcula a media
+    retorna a media do aluno
+    
+Obtenção do horário de uma aula
+  Metodo getHorario
+    implementado na classe Turma, retorno o horário
+    
+Descrição da ementa de uma disciplina
+  Metodo getEmenta
+    Implementado na classe Disciplina, mostra a ementa da disciplina
+
+Cálculo do CR de um aluno
+  Metodo crDoAluno
+    implementado na classe Aluno
+    percorre o array de disciplinas cursadas, 
+    recupera a informação de discCursada.credito[i], 
+    calcula o cr = (notaDisciplina[i] * discCursada.credito[i])/totalCreditos
