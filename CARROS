@@ -228,8 +228,10 @@ public class Carro{
   private String renavan;
   private Pessoa dono;
   private boolean status;   // TRUE = OK  -  FALSE = roubado
+  private boolean IPVA      // TRUE = pago -  FALSE = não pago
   private String cor;
   private int anoModelo, anoFabricacao
+  
   
   Carro {String marca, String modelo, int anoFrabicacao, int anoModelo, String cor, Pessoa dono){
     this.placa = placa;
@@ -263,17 +265,20 @@ public class Carro{
       Retorna ano do modelo
     }
     
-    public void setPlaca (String renavan){
-      Artibui uma placa ao veiculo em caso de veiculo novo
+    public void primeiraLicença (String renavan, Pessoa dono){
+      Artibui uma placa ao veiculo 
+      
     }
-    private void setDono (String Placa){
-      atribui um dono ao veículo
-    } 
     
     public void pesquisaSituacao (String placa){
       retorna status de um veiculo
     } 
-    public void vendaVeiculo (String placa){
-      muda o dono do veículo com a placa recebida atraves de setDono
+    public void vendaVeiculo (String placa, Pessoa novoDono){
+      muda o dono do veículo 
+    }
+    
+    public void licencaAnual (String Placa){
+      Verifica debito IPVA
+      emite licenca anual
     }
       
