@@ -40,28 +40,33 @@ public class Inscricao{
 }
   
 Exibição do histórico do aluno
-  Método HISTÓRICO 
+  public void historico (){ 
     implementado na classe ALUNO retornando todas as cadeiras já cursadas, suas respectivas notas e o CR (outro método desta classe)
-    
+  }
+  
 Cálculo da média do aluno em uma turma
-  Metodo mediaAluno
+  public int mediaAluno (Aluno x){
     implementado na classe Turma
     localiza o aluno no array de alunos da turma 
     percorre o array de notas do referente ao aluno naquela turma
     calcula a media
     retorna a media do aluno
-    
+  }
+  
 Obtenção do horário de uma aula
-  Metodo getHorario
-    implementado na classe Turma, retorno o horário
-    
+  public String getHorario (Turma x){
+    implementado na classe Turma, retorna o horário
+  } 
+  
 Descrição da ementa de uma disciplina
-  Metodo getEmenta
+  public String getEmenta (Disciplina x){
     Implementado na classe Disciplina, mostra a ementa da disciplina
-
+  }
+  
 Cálculo do CR de um aluno
-  Metodo crDoAluno
+  public double crDoAluno (Aluno x){
     implementado na classe Aluno
     percorre o array de disciplinas cursadas, 
     recupera a informação de discCursada.credito[i], 
     calcula o cr = (notaDisciplina[i] * discCursada.credito[i])/totalCreditos
+  }
