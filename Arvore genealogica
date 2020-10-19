@@ -90,3 +90,22 @@ public class Pessoa {
     } 
 }
 
+//=============================================================
+
+Entre o nome da pessoa para ver a sua árvore (p0, p1, p2, p3, p4 p5, p6, p7 ou p8)
+p8
+p8, nascido em: 31/03/1964, é filho de p6 e de p7
+p6, nascido em: 6/6/1929, é filho de p2 e de p3
+p2, nascido em: 10/09/1901 pais desconhecidos
+p3, nascido em: 12/12/1903 pais desconhecidos
+p7, nascido em: 22/07/1925, é filho de p4 e de p5
+p4, nascido em: 17/04/1904, é filho de p0 e de p1
+p0, nascido em: 20/03/1876 pais desconhecidos
+p1, nascido em: 25/04/1884 pais desconhecidos
+p5, nascido em: 13/06/1906 pais desconhecidos
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time:  7.992 s
+Finished at: 2020-10-19T01:10:21-03:00
+------------------------------------------------------------------------
