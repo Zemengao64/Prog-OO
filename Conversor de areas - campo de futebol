@@ -1,0 +1,63 @@
+package com.mycompany.conversordeunidades3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        ConversorDeUnidadesDeArea.conversor(8250, "m");
+        ConversorDeUnidadesDeArea.conversor(1, "cm");
+        ConversorDeUnidadesDeArea.conversor(1, "acre");
+        ConversorDeUnidadesDeArea.conversor(1, "pé");
+
+    }
+}
+
+//==============================================================================================
+
+package com.mycompany.conversordeunidades3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class ConversorDeUnidadesDeArea {
+    
+    public static void conversor(double x, String unidade){
+        double m = 0;
+        double cm = 0; 
+        double pe = 0;
+        double ac = 0;
+        
+        if (unidade.compareTo("m")== 0){
+            m = x;
+            pe = x * 10.76;
+            cm = x * 10000;
+            ac = x * 10.76 / 43560;
+        }
+        
+        if (unidade.compareTo("pé")== 0){
+            pe = x;
+            m = x / 10.76;
+            cm = m * 10000;
+            ac = x / 43560;
+        }
+        
+        if (unidade.compareTo("acre")== 0){
+            ac = x;
+            m = x * 43560 / 10.76;
+            cm = m * 10000;
+            pe = x * 43560;
+        }
+        
+        if (unidade.compareTo("cm")== 0){
+            cm = x;
+            m = x / 10000;
+            pe = m * 10.76;
+            ac = pe / 43560;
+        }
+        System.out.println(m+" m quadrados = "+cm+" cm quadrados = "+pe+" ft quadrados = "+ac+"acres");
+        
+    }
+}
