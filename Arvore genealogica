@@ -1,0 +1,92 @@
+/*
+ * Para este problema foi inicializada a seguinte árvore:
+         p0     p1
+          \     /
+           \   /
+p2     p3   p4    p5
+  \    /     \    /
+   \  /       \  /
+    p6         p7
+     \         /
+      \       /
+       \     /
+          p8
+ */
+package com.mycompany.arvoregenealogica3;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        pessoas[0] = new Pessoa ("p0","20/03/1876");
+        pessoas[1] = new Pessoa ("p1","25/04/1884");
+        pessoas[2] = new Pessoa ("p2","10/09/1901");
+        pessoas[3] = new Pessoa ("p3","12/12/1903");
+        pessoas[4] = new Pessoa ("p4","17/04/1904",pessoas[0],pessoas[1]);
+        pessoas[5] = new Pessoa ("p5","13/06/1906");
+        pessoas[6] = new Pessoa ("p6","6/6/1929",pessoas[2],pessoas[3]);
+        pessoas[7] = new Pessoa ("p7","22/07/1925",pessoas[4],pessoas[5]);
+        pessoas[8] = new Pessoa ("p8","31/03/1964",pessoas[6],pessoas[7]);
+                
+        System.out.println("Entre o nome da pessoa para ver a sua árvore (p0, p1, p2, p3, p4 p5, p6, p7 ou p8)");
+        Scanner entra = new Scanner (System.in);
+        String busca = entra.nextLine();
+        String aux;
+        for (int i = 0; i<pessoas.length; i++){
+            aux = pessoas[i].getNome(pessoas[i]);
+            if (busca.compareTo(aux) == 0){
+                Pessoa.montaArvore(pessoas[i]);
+            }
+        }
+    }
+}
+
+//============================================================================================================
+
+
+package com.mycompany.arvoregenealogica3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Pessoa {
+    private String nome;
+    private String dataNascimento;
+    private Pessoa pai;
+    private Pessoa mae;
+    
+    Pessoa (String nome, String dataNascimento, Pessoa pai, Pessoa mae){
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.pai = pai;
+        this.mae = mae;
+    }
+    
+    Pessoa (String nome, String dataNascimento){
+        this.nome = nome;
+        this.dataNascimento = dataNascimento;
+        this.pai = null;
+        this.mae = null;
+    }
+    
+    public String getNome(Pessoa x){
+        return x.nome;
+    }
+    
+    public static void montaArvore (Pessoa p){    
+        if (p.pai != null) {
+            System.out.println(p.nome+", nascido em: "+p.dataNascimento+", é filho de "+p.pai.nome+" e de "+p.mae.nome);
+            montaArvore(p.pai);
+            montaArvore(p.mae);
+        }
+        if (p.pai == null){
+            System.out.println(p.nome+", nascido em: "+p.dataNascimento+" pais desconhecidos");
+        }
+    } 
+}
+
