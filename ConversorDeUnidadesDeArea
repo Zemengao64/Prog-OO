@@ -1,0 +1,41 @@
+package com.mycompany.conversordeunidades3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        ConversorDeUnidadesDeArea.acreEmPés(20);
+        ConversorDeUnidadesDeArea.metroEmPes(10);
+        ConversorDeUnidadesDeArea.milhaEmAcres(30);
+        ConversorDeUnidadesDeArea.pesEmCentimetro(10);
+    }
+}
+
+//=====================================================================
+
+package com.mycompany.conversordeunidades3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class ConversorDeUnidadesDeArea {
+    
+    public static void metroEmPes(double x){
+        System.out.println( x+" metros quadrados equivalem a: "+ x * 10.76+" pés quadrados");
+    }
+    
+    public static void pesEmCentimetro (double x){
+        System.out.println( x+" pés quadrados equivalem a: "+ x * 929+" centímetros quadrados");
+    }
+    
+    public static void milhaEmAcres (double x){
+        System.out.println( x+" milhas quadradas equivalem a: "+ x * 640+" acres");
+    }
+    
+    public static void acreEmPés (double x){
+        System.out.println( x+" acres equivalem a: "+ x * 43560+" pés quadrados");
+    } 
+}
