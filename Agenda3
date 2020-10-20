@@ -1,0 +1,158 @@
+package com.mycompany.agenda3.Principal;
+
+import com.mycompany.agenda3.PessoaFisica;
+import com.mycompany.agenda3.PessoaJuridica;
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String[] args){
+        ArrayList<PessoaFisica> contatosPF = new ArrayList<PessoaFisica>();
+        ArrayList<PessoaJuridica> contatosPJ = new ArrayList<PessoaJuridica>();        
+        
+        PessoaFisica pf = new PessoaFisica ("ze", "rua 1","734","29/03/1964");
+        contatosPF.add(pf);
+        PessoaJuridica pj = new PessoaJuridica ("coca cola", "rua 3","123/0001",5000000000.0);
+        contatosPJ.add(pj);
+        pf = new PessoaFisica ("tonho", "rua 2","848","01/02/1967");
+        contatosPF.add(pf);
+        pf = new PessoaFisica ("joão", "rua 1","676","20/02/2003");
+        contatosPF.add(pf);
+        pj = new PessoaJuridica ("pepsi cola", "rua 8","345/0001",1000000000.0);
+        contatosPJ.add(pj);
+        pj = new PessoaJuridica ("brahma", "rua 5","678/0001",1200000000.0);
+        contatosPJ.add(pj);
+           
+        
+        for (PessoaFisica p:contatosPF){
+            p.mostraContato();
+        }
+        System.out.println();
+        
+        for (PessoaJuridica p:contatosPJ){
+            p.mostraContato();
+        }
+        System.out.println();
+        
+        String teste;
+        teste = "734";
+        System.out.println("busca pelo CPF: "+teste);
+        for (PessoaFisica p:contatosPF){
+            if (teste.compareTo(p.getCpf(p))==0){
+                p.mostraContato();
+            }
+        }
+        System.out.println();
+        
+        teste = "678/0001";
+        System.out.println("busca pelo CNPJ: "+teste);
+        for (PessoaJuridica p:contatosPJ){
+            if (teste.compareTo(p.getCnpj(p))==0){
+                p.mostraContato();
+            }
+        }
+        System.out.println();
+        
+    }
+}
+
+//======================================================
+
+package com.mycompany.agenda3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Pessoa {
+    protected String nome;
+    protected String endereco;
+    
+    Pessoa (String nome, String endereco){
+        this.nome = nome;
+        this.endereco = endereco;
+    }
+    
+    public void mostraContato (){
+        System.out.println("Endereco: "+ this.endereco);
+    }
+}
+
+//======================================================
+
+package com.mycompany.agenda3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class PessoaFisica extends Pessoa {
+    protected String cpf;
+    protected String aniversario;
+    
+    public PessoaFisica (String nome, String endereco, String cpf, String aniversario){
+        super(nome, endereco);
+        this.cpf = cpf;
+        this.aniversario = aniversario;
+    }
+    
+    @Override
+    public void mostraContato (){
+        System.out.println("Nome da pessoa: "+ this.nome);
+        super.mostraContato();
+        System.out.println("CPF: "+ this.cpf);
+        System.out.println("Aniversário: "+ this.aniversario);
+        System.out.println("-------------------------------------------------------");
+    }
+    
+    public void buscaCpf (PessoaFisica p, String teste){
+        if(p.cpf.compareTo(teste)==0){
+            mostraContato();
+        }
+    }
+
+    public String getCpf (PessoaFisica p){
+        return p.cpf;
+    }    
+}
+
+//======================================================
+
+package com.mycompany.agenda3;
+
+/**
+ *
+ * @author Belmont
+ */
+public class PessoaJuridica extends Pessoa{
+    protected double faturamento;
+    protected String cnpj;
+    
+    public PessoaJuridica (String nome, String endereco, String cnpj, double faturamento){
+        super(nome, endereco);
+        this.cnpj = cnpj;
+        this.faturamento = faturamento;
+    }
+    
+    @Override
+    public void mostraContato (){
+        System.out.println("Razão Social: "+ this.nome);
+        super.mostraContato();  
+        System.out.println("CNPJ: "+ this.cnpj);
+        System.out.println("Faturamento: "+ this.faturamento);
+        System.out.println("-------------------------------------------------------");
+    }
+    
+    public void buscaCnpj (PessoaJuridica p, String teste){
+        if(p.cnpj.compareTo(teste)==0){
+            mostraContato();
+        }
+    }  
+    
+    public String getCnpj (PessoaJuridica p){
+        return p.cnpj;
+    }
+}
