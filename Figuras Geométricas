@@ -1,0 +1,152 @@
+package com.mycompany.figurasgeometricas.newpackage;
+
+
+
+import com.mycompany.figurasgeometricas.Curvas;
+
+import com.mycompany.figurasgeometricas.Figuras;
+
+import com.mycompany.figurasgeometricas.Quadrilatero;
+
+import com.mycompany.figurasgeometricas.Triangulo;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        Figuras fig1 = new Quadrilatero ("quadrado",2,2);
+        Figuras fig2 = new Quadrilatero ("retangulo",2,4);
+        Figuras fig3 = new Triangulo ("triangulo",2,2);
+        Figuras fig4 = new Curvas ("círculo",2);
+    
+        fig1.calculaArea();
+        fig2.calculaArea();
+        fig3.calculaArea();
+        fig4.calculaArea();
+    }
+}
+
+==================================================================
+
+package com.mycompany.figurasgeometricas;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Figuras {
+    protected String nome;
+    
+    public Figuras (String nome){
+        this.nome = nome;
+    }
+    
+    public void calculaArea(){
+        
+    }
+}
+
+============================================================
+
+package com.mycompany.figurasgeometricas;
+
+/**
+ *
+ * @author Belmont
+ */
+public class FigRetas extends Figuras{
+    protected double medida1, medida2;
+    
+    public FigRetas (String nome, double x, double y){
+        super (nome);
+        this.medida1 = x;
+        this.medida2 = y; 
+    }
+}
+
+================================================================
+
+package com.mycompany.figurasgeometricas;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Quadrilatero extends FigRetas{
+    
+    public Quadrilatero (String nome, double medida1, double medida2){
+        super(nome, medida1, medida2);
+    }
+    
+    @Override
+    public void calculaArea(){
+        double area = medida1 * medida2;
+        System.out.println("a área do "+this.nome+" de lados "+medida1+" e "+medida2+" é: "+area);
+    }
+}
+
+=================================================================================
+
+
+package com.mycompany.figurasgeometricas;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Triangulo extends FigRetas {
+    
+    public Triangulo (String nome, double medida1, double medida2){
+        super(nome, medida1, medida2);
+    }
+    
+    @Override
+    public void calculaArea(){
+        double area = (medida1 * medida2) / 2;
+        System.out.println("a área do "+this.nome+" de base "+medida1+" e altura"+medida2+" é: "+area);
+    }
+}
+
+
+===================================================================================
+
+
+package com.mycompany.figurasgeometricas;
+import java.lang.Math;
+/**
+ *
+ * @author Belmont
+ */
+public class Curvas extends Figuras {
+
+    //public static final double PI;
+    double medida1;
+    
+    public Curvas (String nome, double x){
+        super(nome);
+        this.medida1 = x;
+    }
+    
+    @Override
+    public void calculaArea (){
+        double area = Math.PI*medida1*medida1;
+        System.out.println("a área do "+this.nome+" de raio "+medida1+" é: "+area);
+    }
+}
+
+=======================================================================================
+
+
+--- exec-maven-plugin:1.5.0:exec (default-cli) @ FigurasGeometricas ---
+a área do quadrado de lados 2.0 e 2.0 é: 4.0
+a área do retangulo de lados 2.0 e 4.0 é: 8.0
+a área do triangulo de base 2.0 e altura 2.0 é: 2.0
+a área do círculo de raio 2.0 é: 12.566370614359172
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time:  3.417 s
+Finished at: 2020-10-26T20:47:26-03:00
+------------------------------------------------------------------------
