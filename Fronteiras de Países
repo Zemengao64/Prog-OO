@@ -59,10 +59,14 @@ public class Principal {
                 else System.out.println("um ou ambos os paises não existe(m)"); 
             }
         }while (pais.compareTo("fim") != 0);
+        System.out.println();
+        System.out.println();
+        
         //  ================== Fim da rotina de inserção de vizinhos ==================================
         
         Paises.todasAsFronteiras(p);
-        
+        System.out.println();
+        System.out.println();
         
         //  ===============  Rotina que busca vizinhos de um país =================================
         System.out.println("BUSCA DE PAÍSES VIZINHOS");
@@ -76,6 +80,8 @@ public class Principal {
                 
             }
         }while (pais.compareTo("fim") != 0);
+        System.out.println();
+        System.out.println();
         
         // =====================  Rotina que mostra vizinhos comuns ================================
         
