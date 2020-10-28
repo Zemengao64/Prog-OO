@@ -1,0 +1,287 @@
+package com.mycompany.paises3.Principal;
+
+import com.mycompany.paises3.Paises;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        int size = 13;
+        Paises [] p = new Paises [size];
+        
+        p [0] = new Paises ("Argentina","Buenos Aires", 2791810);
+        p [1] = new Paises ("Bolívia","La paz", 1098580);
+        p [2] = new Paises ("Brasil","Brasilia", 8517767149.0);
+        p [3] = new Paises ("Chile","Santiago", 756096);
+        p [4] = new Paises ("Colômbia","Bogotá", 1141750);
+        p [5] = new Paises ("Equador","Quito", 256370);
+        p [6] = new Paises ("Guiana","Georgetown", 214970);
+        p [7] = new Paises ("Paraguai","Assunção", 406750);
+        p [8] = new Paises ("Peru","Lima", 1285220);
+        p [9] = new Paises ("Suriname","Paramaribo", 163820);
+        p [10] = new Paises ("Uruguai","Montevideo", 176220);
+        p [11] = new Paises ("Venezuela","Caracas", 9121050);
+        p [12] = new Paises ("Guiana Francesa","Caiena", 185310);
+        
+        Scanner entra = new Scanner (System.in);
+        String aux;
+        String pais = "";
+        String vizinho = "";
+
+        /*
+        //  =============  ROTINA DE INSERÇÃO DOS PAÍSES ==================
+        for (int i=0; i<size; i++){
+            p[i] = new Paises ();
+            aux = entra.nextLine();
+        }
+        */
+        
+        
+        //  ================== Rotina de inserção de países vizinhos =================================
+        System.out.println("SETUP DE PAÍSES VIZINHOS");
+        
+        do{  
+            System.out.println("Selecione dois vizinhos ou digite 'fim' para encerrar");
+            System.out.println("Entre o nome do país");
+            pais = entra.nextLine();
+            if (pais.compareTo("fim")!=0) {
+                System.out.println("Entre o nome do vizinho");
+                vizinho = entra.nextLine();
+                int i = Paises.getPais (p, pais);
+                int j = Paises.getPais (p, vizinho);
+                System.out.println (i+"  "+j);
+                if (i>=0 && j>=0){
+                    Paises.insereVizinho(p, p[i], p[j]);
+                }
+                else System.out.println("um ou ambos os paises não existe(m)"); 
+            }
+        }while (pais.compareTo("fim") != 0);
+        //  ================== Fim da rotina de inserção de vizinhos ==================================
+        
+        Paises.todasAsFronteiras(p);
+        
+        
+        //  ===============  Rotina que busca vizinhos de um país =================================
+        System.out.println("BUSCA DE PAÍSES VIZINHOS");
+        
+        do{
+            System.out.println("Selecione um país para saber seus vizinhos ou digite 'fim' para encerrar");
+            pais = entra.nextLine();
+            if (pais.compareTo("fim")!=0) {
+                int i = Paises.getPais (p, pais);
+                if (i>=0) Paises.mostraVizinhos(p, i);
+                
+            }
+        }while (pais.compareTo("fim") != 0);
+        
+        // =====================  Rotina que mostra vizinhos comuns ================================
+        
+        System.out.println("BUSCA DE PAÍSES VIZINHOS COMUNS A 2 PAISES");
+        do{
+            String pais2 = "";
+            System.out.println("Selecione o 1º país  ou digite 'fim' para encerrar");
+            pais = entra.nextLine();
+            if (pais.compareTo("fim")!=0) {
+                int i = Paises.getPais (p, pais);
+                System.out.println("Entre o nome do 2º ");
+                pais2 = entra.nextLine();
+                int j = Paises.getPais (p, pais2);
+                if (i>=0 && j>=0){
+                    Paises.vizinhosComuns(p, p[i], p[j]);
+                }    
+            }
+        }while (pais.compareTo("fim") != 0);
+    }
+}
+
+
+==================================================================
+
+
+package com.mycompany.paises3;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Paises {
+
+    private String nome;
+    private String capital;
+    private double area;
+    static int size = 13 ;
+    private static int[] [] matrizVizinhos = new int [size][size];
+     
+    public Paises (){
+        Scanner entra = new Scanner (System.in);
+        System.out.println("Entre o nome do país ou FIM para parar a inserção");
+        this.nome = entra.nextLine();
+        System.out.println("Entre o nome da capital do país");
+        this.capital = entra.nextLine();
+        System.out.println("Entre a área do país");
+        this.area = entra.nextDouble();
+        size ++;
+    }
+    
+    public Paises (String nome, String capital, double area){
+        this.nome = nome;
+        this.capital = capital;
+        this.area = area;
+    }
+    
+    public String getNome(Paises x){
+        return x.nome;
+    }
+    
+    public String getCapital(Paises x){
+        return x.capital;
+    }
+    
+    public double getArea(Paises x){
+        return x.area;
+    }
+    
+    public static int getPais (Paises [] p, String nome){
+        for (int i=0; i<size; i++){
+            if (p[i].nome.compareTo(nome) == 0) return i;
+        }
+        return -1;
+    }
+    
+    public static boolean equals (Paises x, Paises y){
+        if (x.nome.compareTo(y.nome)==0 && x.capital.compareTo(y.capital)==0) return true;
+        else return false;
+    }
+    
+    public static int buscaPais (Paises[] p, Paises x){
+        for (int i=0; i<size; i++){
+            if (x.nome.compareToIgnoreCase(p[i].nome) == 0) return i;
+        }
+        System.out.println("O pais não existe");
+        return -1;
+    }
+    
+    public static void insereVizinho (Paises []p, Paises x, Paises y){
+        int i, j;
+        i = buscaPais(p,x);
+        j = buscaPais(p,y);
+        if (i != -1 && j != -1){
+            if (!equals (x,y)){
+                matrizVizinhos[i][j] = 1;
+                matrizVizinhos[j][i] = 1; 
+            }
+        }
+    }
+    
+    private static void verificaVizinhos (Paises[] p, int i, int j){
+        if (matrizVizinhos [i][j] == 1){
+            System.out.println("O pais "+p[i].nome+" é vizinho do país "+p[j].nome);
+        }
+    }
+    
+    public static void mostraVizinhos ( Paises []p, int i){
+        for (int j=0; j<size; j++){
+            verificaVizinhos (p, i, j);
+        }
+    }
+    
+    public static void todasAsFronteiras (Paises []p){
+        for (int i=0; i<size; i++){
+            for(int j=(i+1); j<size; j++){
+                verificaVizinhos (p, i, j);
+            }
+        }
+    }
+    
+    public static void vizinhosComuns (Paises []p, Paises x, Paises y){
+        int i = buscaPais (p , x);
+        int k = buscaPais (p , y);
+        if (i != -1 && k != -1){
+            for (int j=0; j<size; j++){
+                if(matrizVizinhos [i][j] == 1 && matrizVizinhos [k][j] == 1){
+                    System.out.println("Os paises "+x.nome+" e "+y.nome+", tem como vizinho comum o país "+p[j].nome);
+                }
+            }
+        }        
+    }
+}
+
+
+=============================================================
+
+RESULTADOS
+
+O pais Argentina é vizinho do país Bolívia
+O pais Argentina é vizinho do país Brasil
+O pais Argentina é vizinho do país Chile
+O pais Argentina é vizinho do país Paraguai
+O pais Argentina é vizinho do país Uruguai
+O pais Bolívia é vizinho do país Brasil
+O pais Bolívia é vizinho do país Chile
+O pais Bolívia é vizinho do país Paraguai
+O pais Bolívia é vizinho do país Peru
+O pais Brasil é vizinho do país Colômbia
+O pais Brasil é vizinho do país Guiana
+O pais Brasil é vizinho do país Paraguai
+O pais Brasil é vizinho do país Peru
+O pais Brasil é vizinho do país Suriname
+O pais Brasil é vizinho do país Uruguai
+O pais Brasil é vizinho do país Venezuela
+O pais Brasil é vizinho do país Guiana Francesa
+O pais Chile é vizinho do país Peru
+O pais Colômbia é vizinho do país Equador
+O pais Colômbia é vizinho do país Peru
+O pais Colômbia é vizinho do país Venezuela
+O pais Equador é vizinho do país Peru
+O pais Guiana é vizinho do país Suriname
+O pais Guiana é vizinho do país Venezuela
+
+
+BUSCA DE PAÍSES VIZINHOS
+Selecione um país para saber seus vizinhos ou digite 'fim' para encerrar
+Chile
+O pais Chile é vizinho do país Argentina
+O pais Chile é vizinho do país Bolívia
+O pais Chile é vizinho do país Peru
+Selecione um país para saber seus vizinhos ou digite 'fim' para encerrar
+Brasil
+O pais Brasil é vizinho do país Argentina
+O pais Brasil é vizinho do país Bolívia
+O pais Brasil é vizinho do país Colômbia
+O pais Brasil é vizinho do país Guiana
+O pais Brasil é vizinho do país Paraguai
+O pais Brasil é vizinho do país Peru
+O pais Brasil é vizinho do país Suriname
+O pais Brasil é vizinho do país Uruguai
+O pais Brasil é vizinho do país Venezuela
+O pais Brasil é vizinho do país Guiana Francesa
+Selecione um país para saber seus vizinhos ou digite 'fim' para encerrar
+Equador
+O pais Equador é vizinho do país Colômbia
+O pais Equador é vizinho do país Peru
+Selecione um país para saber seus vizinhos ou digite 'fim' para encerrar
+fim
+
+
+BUSCA DE PAÍSES VIZINHOS COMUNS A 2 PAISES
+Selecione o 1º país  ou digite 'fim' para encerrar
+Brasil
+Entre o nome do 2º 
+Argentina
+Os paises Brasil e Argentina, tem como vizinho comum o país Bolívia
+Os paises Brasil e Argentina, tem como vizinho comum o país Paraguai
+Os paises Brasil e Argentina, tem como vizinho comum o país Uruguai
+Selecione o 1º país  ou digite 'fim' para encerrar
+Brasil
+Entre o nome do 2º 
+Equador
+Os paises Brasil e Equador, tem como vizinho comum o país Colômbia
+Os paises Brasil e Equador, tem como vizinho comum o país Peru
+Selecione o 1º país  ou digite 'fim' para encerrar
+
+
