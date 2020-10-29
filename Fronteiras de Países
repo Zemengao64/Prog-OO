@@ -205,14 +205,17 @@ public class Paises {
     }
     
     public static void vizinhosComuns (Paises []p, Paises x, Paises y){
+        boolean check = false;
         int i = buscaPais (p , x);
         int k = buscaPais (p , y);
         if (i != -1 && k != -1){
             for (int j=0; j<size; j++){
                 if(matrizVizinhos [i][j] == 1 && matrizVizinhos [k][j] == 1){
                     System.out.println("Os paises "+x.nome+" e "+y.nome+", tem como vizinho comum o país "+p[j].nome);
+                    check = true;
                 }
             }
+            if (!check) System.out.println("Não há fronteiras comuns entre "+x.nome+" e "+y.nome);
         }        
     }
 }
