@@ -1,0 +1,167 @@
+package com.mycompany.figurasgeometrica4.Principal;
+
+import com.mycompany.figurasgeometrica4.Circulo;
+import com.mycompany.figurasgeometrica4.Quadrado;
+import com.mycompany.figurasgeometrica4.Retangulo;
+import com.mycompany.figurasgeometrica4.Triangulo;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    
+    public static void main (String [] args){
+        Circulo f1 = new Circulo ("círculo");
+        f1.calculaArea(3);
+        f1.calculaPerimetro(3);
+        System.out.println("a área do "+f1.getNome()+" é "+f1.getArea());
+        System.out.println("o perímetro do "+f1.getNome()+" é "+f1.getPerimetro());
+        
+        Triangulo f2 = new Triangulo ("Triangulo");
+        f2.calculaArea(3,4);
+        f2.CalculaPerimetro(3,4,5);
+        System.out.println("a área do "+f2.getNome()+" é "+f2.getArea());
+        System.out.println("o perímetro do "+f2.getNome()+" é "+f2.getPerimetro());
+        
+        Retangulo f3 = new Retangulo ("Retangulo");
+        f3.calculaArea(2, 3);
+        f3.calculaPerimetro(2, 3);
+        System.out.println("a área do "+f3.getNome()+" é "+f3.getArea());
+        System.out.println("o perímetro do "+f3.getNome()+" é "+f3.getPerimetro());
+        
+        Quadrado f4 = new Quadrado ("Quadrado");
+        f4.calculaArea(3);
+        f4.calculaPerimetro(3);
+        System.out.println("a área do "+f4.getNome()+" é "+f4.getArea());
+        System.out.println("o perímetro do "+f4.getNome()+" é "+f4.getPerimetro());
+    }
+}
+
+==========================================================
+
+package com.mycompany.figurasgeometrica4;
+
+/**
+ *
+ * @author Belmont
+ */
+public abstract class  FormasGeometricas {
+    protected double area;
+    protected double perimetro;
+    protected String nome;
+    
+    public FormasGeometricas (String nome){
+        this.nome = nome;
+    }
+    
+    public double getArea(){
+        return this.area;
+    }
+    
+    public double getPerimetro(){
+        return this.perimetro;
+    }
+    
+    public String getNome(){
+        return this.nome;
+    }
+}    
+
+========================================================
+
+package com.mycompany.figurasgeometrica4;
+import java.lang.Math;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Circulo extends FormasGeometricas {
+    
+    protected double raio;
+    
+    public Circulo (String nome){
+        super (nome);
+    }
+    
+    public void calculaArea (double raio){
+        this.area = Math.PI * raio * raio;
+    }
+    
+    public void calculaPerimetro (double raio){
+        this.perimetro = Math.PI*raio*2;
+    }
+}
+
+============================================================
+
+package com.mycompany.figurasgeometrica4;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Triangulo extends FormasGeometricas {
+    
+    public Triangulo (String nome){
+        super(nome);
+    }
+    
+    public void calculaArea (double base, double altura){
+        this.area = base * altura / 2;
+    }
+    
+    public void CalculaPerimetro (double l1, double l2, double l3){
+        this.perimetro = l1+l2+l3;
+    }
+}
+
+================================================================================
+
+package com.mycompany.figurasgeometrica4;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Retangulo extends FormasGeometricas{
+    
+    public Retangulo (String nome){
+        super (nome);
+    }
+    
+    public void calculaArea (double l1, double l2){
+        this.area = l1 * l2;
+    }
+    
+    public void calculaPerimetro (double l1, double l2){
+        this.perimetro = (2*l1)+(2*l2);
+    }
+}
+
+=======================================================================
+
+package com.mycompany.figurasgeometrica4;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Quadrado extends Retangulo{
+    
+    public Quadrado (String nome){
+        super (nome);
+    }
+    
+    public void calculaArea (double l1){
+        this.area = l1 * l1;
+    }
+    
+    public void calculaPerimetro (double l1){
+        this.perimetro = 4*l1;
+    }
+}
+
+===============================================================
+
