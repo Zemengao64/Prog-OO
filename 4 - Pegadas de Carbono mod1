@@ -189,6 +189,22 @@ public class Escola extends Construcoes {
 
 =================================================================================
 
+package com.mycompany.pegadasdecarbono4;
+
+/**
+ *
+ * @author Belmont
+ */
+public interface CarbonFootprint {
+    
+    public double getCarbonFootprint ();
+    
+    public String getNome();
+    
+}
+
+=========================================================================
+
 
 Qual é quantidade de horas de permanência das pessoas no ambiente casa? 
 12
