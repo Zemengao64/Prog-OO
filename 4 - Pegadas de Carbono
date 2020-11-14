@@ -1,0 +1,159 @@
+package com.mycompany.pegadasdecarbono4.Principal;
+
+import com.mycompany.pegadasdecarbono4.Bicicleta;
+import com.mycompany.pegadasdecarbono4.CarbonFootprint;
+import com.mycompany.pegadasdecarbono4.Carro;
+import com.mycompany.pegadasdecarbono4.Construcoes;
+import java.util.*;
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        
+        ArrayList<CarbonFootprint> cfp = new ArrayList<CarbonFootprint>();
+        
+        CarbonFootprint c1 = new Construcoes ("predio 1", 60, 3800);
+        cfp.add(c1);
+        CarbonFootprint c2 = new Construcoes ("predio 2", 80, 5200);
+        cfp.add(c2);
+        CarbonFootprint c3 = new Carro ("Jeep", 10, 1800);
+        cfp.add(c3);
+        CarbonFootprint c4 = new Carro ("Fiat Uno", 14, 1000);
+        cfp.add(c4);
+        CarbonFootprint c5 = new Bicicleta ("caloi");
+        cfp.add(c5);
+        CarbonFootprint c6 = new Bicicleta ("Monark");
+        cfp.add(c6);
+        
+        for (CarbonFootprint c:cfp ){
+            System.out.println ("O "+c.getNome()+" produziu "+c.getCarbonFootprint()+" kg de carbono");
+        }  
+    }
+}
+
+
+==========================================================================
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+
+/**
+ *
+ * @author Belmont
+ */
+public class Construcoes implements CarbonFootprint {
+    protected String nome;
+    protected int empregados;
+    protected double consumoEnergia;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Construcoes (String nome, int empregados, double consumoEnergia) {
+        this.nome = nome;
+        this.empregados = empregados;
+        this.consumoEnergia = consumoEnergia;
+    }
+
+    @Override
+    public double getCarbonFootprint() {
+        System.out.println("Qual é quantidade de horas trabalhadas dos empregados do "+ this.nome+"? ");
+        double ht = entra.nextDouble();
+        return empregados * 0.18 * ht + consumoEnergia * 6 * ht;
+    } 
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }
+}
+
+=======================================================================
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Carro implements CarbonFootprint{
+    protected double consumoKmPorLitro;
+    protected String nome;
+    protected double deslocamento;
+    protected int cilindrada;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Carro (String nome, double consumoKmPorLitro, int cilindrada){
+        this.nome = nome;
+        this.cilindrada = cilindrada;
+        this.consumoKmPorLitro = consumoKmPorLitro;
+    }
+
+    @Override
+    public double getCarbonFootprint() {
+        System.out.println("Qual foi o deslocamento do "+this.nome+" em km? ");
+        deslocamento = entra.nextDouble();
+        return (deslocamento / consumoKmPorLitro) * 3.82;
+    }
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }   
+}
+
+==============================================================================
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Bicicleta implements CarbonFootprint {
+    protected String nome;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Bicicleta (String nome){
+        this.nome = nome;
+    }  
+
+    @Override
+    public double getCarbonFootprint() {
+        double tempo;
+        System.out.println("Qual foi o tempo de deslocamemnto da "+this.nome+" em horas? ");
+        tempo = entra.nextDouble();
+        return tempo * 0.18;
+    }
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }   
+}
+
+=======================================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+/**
+ *
+ * @author Belmont
+ */
+public interface CarbonFootprint {
+    
+    public double getCarbonFootprint ();
+    
+    public String getNome();
+    
+}
