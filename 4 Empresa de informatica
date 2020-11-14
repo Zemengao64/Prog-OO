@@ -1,0 +1,197 @@
+package com.mycompany.empresainformatica4.Principal;
+import com.mycompany.empresainformatica4.Recebiveis;
+import com.mycompany.empresainformatica4.Servico;
+import com.mycompany.empresainformatica4.Vendas;
+import java.util.*;
+/**
+ *
+ * @author Belmont
+ */
+public class RegistroRecebimentos {
+    public static void main (String[] args){
+        double total = 0;
+        boolean flag = true;
+        
+        ArrayList<Recebiveis> registros = new ArrayList<Recebiveis>();
+        
+        Scanner entra = new Scanner (System.in);
+        
+        while (flag){
+            int escolha = 0;
+            System.out.println ("        MENU    ");
+            System.out.println ("<1> REGISTRAR UM SERVIÇO");
+            System.out.println ("<2> REGISTRAR UMA VENDA ");
+            System.out.println ("<3> FECHAR O FATURAMENTO");
+            System.out.println ("<9> ENCERRAR");
+            System.out.println ();
+            System.out.println (">");
+            
+            escolha = entra.nextInt();
+            
+            if (escolha == 1){
+                Servico obj = new Servico();
+                registros.add(obj);
+            }
+            
+            if (escolha == 2){
+                Vendas obj = new Vendas();
+                registros.add(obj);
+            }
+            
+            if (escolha == 3){
+                for (Recebiveis r : registros){
+                    total = total + r.totalizarReceita();
+                    System.out.println("---------------");
+                    System.out.println("DESCRIÇÃO     : "+r.getNome());
+                    System.out.println("QUANTIDADE    : "+r.getQuantidade());
+                    System.out.println("PREÇO UNITÁRIO: "+r.getPrecoUnitario()+"       subtotal: "+r.totalizarReceita());
+                    
+                }
+                System.out.println("====================================================");
+                System.out.println("TOTAL A RECEBER:                      "+total);
+                System.out.println("====================================================");
+                System.out.println();
+                total = 0;
+            }
+            
+            if (escolha == 9){
+                flag = false;
+            }
+        }
+    }
+}
+
+===========================================================================================
+
+package com.mycompany.empresainformatica4;
+import java.util.*;
+/**
+ *
+ * @author Belmont
+ */
+public class Vendas implements Recebiveis {
+    String produto;
+    int quant;
+    double precoUnitario;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Vendas (){
+        System.out.println ("Entre a descição do produto ");
+        this.produto = entra.nextLine();
+        System.out.println ("Entre a quantidade vendida ");
+        this.quant = entra.nextInt();
+        System.out.println ("Entre o preço unitário do produto ");
+        this.precoUnitario = entra.nextDouble();
+    }
+    
+    @Override
+    public double totalizarReceita(){
+        return this.quant * this.precoUnitario;
+    }
+    
+    @Override
+    public String getNome(){
+        return this.produto;
+    }
+    
+    @Override
+    public int getQuantidade(){
+        return this.quant;
+    }
+       
+    @Override
+    public double getPrecoUnitario(){
+        return this.precoUnitario;
+    }
+    
+}
+
+=============================================================================
+
+package com.mycompany.empresainformatica4;
+
+import java.util.*;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Servico implements Recebiveis {
+    String descricao;
+    int horas;
+    double precoHora = 150.00;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Servico (){
+        System.out.println ("Entre a descição do serviço ");
+        this.descricao = entra.nextLine();
+        System.out.println ("Entre a quantidade de horas trabalhadas ");
+        this.horas = entra.nextInt();
+    }
+    
+    @Override
+    public double totalizarReceita(){
+        return this.horas * this.precoHora;
+    }
+    
+    @Override
+    public String getNome(){
+        return this.descricao;
+    }
+    
+    @Override
+    public int getQuantidade(){
+        return this.horas;
+    }
+       
+    @Override
+    public double getPrecoUnitario(){
+        return this.precoHora;
+    }
+}
+
+======================================================================
+
+package com.mycompany.empresainformatica4;
+
+/**
+ *
+ * @author Belmont
+ */
+public interface Recebiveis {
+    
+    public double totalizarReceita();
+    
+    public String getNome();
+    
+    public int getQuantidade();
+    
+    public double getPrecoUnitario();
+    
+}
+
+==========================================================================
+
+
+---------------
+DESCRIÇÃO     : formatação
+QUANTIDADE    : 2
+PREÇO UNITÁRIO: 150.0       subtotal: 300.0
+---------------
+DESCRIÇÃO     : HD
+QUANTIDADE    : 220
+PREÇO UNITÁRIO: 220.0       subtotal: 48400.0
+====================================================
+TOTAL A RECEBER:                      48700.0
+====================================================
+
+        MENU    
+<1> REGISTRAR UM SERVIÇO
+<2> REGISTRAR UMA VENDA 
+<3> FECHAR O FATURAMENTO
+<9> ENCERRAR
+
+>
+9
