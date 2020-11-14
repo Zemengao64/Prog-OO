@@ -1,0 +1,210 @@
+// Resposta à pergunta 3a - Ao mudar a classe Construcoes para abstrata o main onde é gerado os objetos parou de funcionar em virtude de agora não mais se poder instanciar
+// objetos dessa classe.  O programa volta a funcionar quando se passa instanciar obketos diretamente das subclasses
+===================================================
+
+
+package com.mycompany.pegadasdecarbono4.Principal;
+
+import com.mycompany.pegadasdecarbono4.Bicicleta;
+import com.mycompany.pegadasdecarbono4.CarbonFootprint;
+import com.mycompany.pegadasdecarbono4.Carro;
+import com.mycompany.pegadasdecarbono4.Casa;
+import com.mycompany.pegadasdecarbono4.Construcoes;
+import com.mycompany.pegadasdecarbono4.Escola;
+import java.util.*;
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        
+        ArrayList<CarbonFootprint> cfp = new ArrayList<CarbonFootprint>();
+        
+        CarbonFootprint c1 = new Casa ("Casa", 5, 470);                 
+        cfp.add(c1);
+        CarbonFootprint c2 = new Escola ("Escola", 110, 5200);
+        cfp.add(c2);
+        CarbonFootprint c3 = new Carro ("Jeep", 10, 1800);
+        cfp.add(c3);
+        CarbonFootprint c4 = new Carro ("Fiat Uno", 14, 1000);
+        cfp.add(c4);
+        CarbonFootprint c5 = new Bicicleta ("caloi");
+        cfp.add(c5);
+        CarbonFootprint c6 = new Bicicleta ("Monark");
+        cfp.add(c6);
+        
+        for (CarbonFootprint c:cfp ){
+            System.out.println (c.getNome()+" produziu "+c.getCarbonFootprint()+" kg de carbono");
+        }  
+    }
+}
+
+
+==============================================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+
+/**
+ *
+ * @author Belmont
+ */
+public abstract class Construcoes implements CarbonFootprint {
+    protected String nome;
+    protected int pessoas;
+    protected double consumoEnergia;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Construcoes (String nome, int pessoas, double consumoEnergia) {
+        this.nome = nome;
+        this.pessoas = pessoas;
+        this.consumoEnergia = consumoEnergia;
+    }
+
+    @Override
+    public double getCarbonFootprint() {
+        System.out.println("Qual é quantidade de horas de permanência das pessoas no ambiente "+ this.nome+"? ");
+        double ht = entra.nextDouble();
+        return pessoas * 0.18 * ht + consumoEnergia * 6 * ht;
+    } 
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }
+}
+
+================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Carro implements CarbonFootprint{
+    protected double consumoKmPorLitro;
+    protected String nome;
+    protected double deslocamento;
+    protected int cilindrada;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Carro (String nome, double consumoKmPorLitro, int cilindrada){
+        this.nome = nome;
+        this.cilindrada = cilindrada;
+        this.consumoKmPorLitro = consumoKmPorLitro;
+    }
+
+    @Override
+    public double getCarbonFootprint() {
+        System.out.println("Qual foi o deslocamento do "+this.nome+" em km? ");
+        deslocamento = entra.nextDouble();
+        return (deslocamento / consumoKmPorLitro) * 3.82;
+    }
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }   
+}
+
+
+===================================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Bicicleta implements CarbonFootprint {
+    protected String nome;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Bicicleta (String nome){
+        this.nome = nome;
+    }  
+
+    @Override
+    public double getCarbonFootprint() {
+        double tempo;
+        System.out.println("Qual foi o tempo de deslocamemnto da "+this.nome+" em horas? ");
+        tempo = entra.nextDouble();
+        return tempo * 0.18;
+    }
+    
+    @Override
+    public String getNome (){
+        return this.nome;
+    }   
+}
+
+
+===============================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Casa extends Construcoes {
+    
+    public Casa (String nome, int pessoas, double consumoEnergia ){
+        super (nome, pessoas, consumoEnergia);
+    }
+    
+}
+
+=================================================================================
+
+
+package com.mycompany.pegadasdecarbono4;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Escola extends Construcoes {
+    
+    public Escola (String nome, int pessoas, double consumoEnergia ){
+        super (nome, pessoas, consumoEnergia);
+    }
+    
+}
+
+=================================================================================
+
+
+Qual é quantidade de horas de permanência das pessoas no ambiente casa? 
+12
+Casa produziu 33850.8 kg de carbono
+Qual é quantidade de horas de permanência das pessoas no ambiente escola? 
+8
+Escola produziu 249758.4 kg de carbono
+Qual foi o deslocamento do Jeep em km? 
+100
+Jeep produziu 38.199999999999996 kg de carbono
+Qual foi o deslocamento do Fiat Uno em km? 
+100
+Fiat Uno produziu 27.285714285714285 kg de carbono
+Qual foi o tempo de deslocamemnto da caloi em horas? 
+2
+caloi produziu 0.36 kg de carbono
+Qual foi o tempo de deslocamemnto da Monark em horas? 
+1
+Monark produziu 0.18 kg de carbono
