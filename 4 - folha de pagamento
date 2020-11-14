@@ -1,0 +1,261 @@
+package com.mycompany.folhadepagamento.Principal;
+import com.mycompany.folhadepagamento.Assalariado;
+import com.mycompany.folhadepagamento.Comissionado;
+import com.mycompany.folhadepagamento.Horario;
+import com.mycompany.folhadepagamento.Recebiveis;
+import com.mycompany.folhadepagamento.Vendas;
+import java.util.*;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        double totalDaFolha = 0;
+        ArrayList<Recebiveis> func = new ArrayList<Recebiveis>();
+        
+        
+        Recebiveis f = new Assalariado("Maria", "123",2000);
+        func.add(f);
+        f = new Assalariado("Joana", "3221",2500);
+        func.add(f);
+        f = new Horario("Sandra", "4561",2500);
+        func.add(f);
+        f = new Horario("Jacira", "3625",3800);
+        func.add(f);
+        f = new Vendas("Cláudia", "7852");
+        func.add(f);
+        f = new Vendas("Rosa", "4132");
+        func.add(f);
+        f = new Comissionado("Ana", "2235",2300);
+        func.add(f);
+        f = new Comissionado("Jacqueline", "6467",3000);
+        func.add(f);
+        
+               
+        for (Recebiveis r : func){
+            double aux = r.vencimentos();
+            totalDaFolha = totalDaFolha + aux;
+            r.setVenc(aux);   
+        }
+        
+        for (Recebiveis r : func){
+            System.out.println (r.getNome()+" matricula "+r.getMatricula()+"    vencimentos: "+r.getVenc());
+        }
+        System.out.println (" ---------------------------------------------------------------------------------------");
+        System.out.println ("Total da Folha  ---> "+totalDaFolha);
+            
+    }
+}
+
+==========================================================================================
+
+
+package com.mycompany.folhadepagamento;
+
+/**
+ *
+ * @author Belmont
+ */
+public abstract class Funcionario implements Recebiveis{
+    String nome;
+    String mastricula;
+    double venc;
+    
+    public Funcionario (String nome, String matricula){
+        this.nome = nome;
+        this.mastricula = matricula;
+    }
+     
+    @Override
+    public String getNome(){
+        return this.nome;
+    }
+    
+    @Override
+    public String getMatricula(){
+        return this.mastricula;
+    }  
+        
+    @Override
+    public void setVenc (double x){
+        this.venc = x;
+    }
+    
+    @Override
+    public double getVenc(){
+        return this.venc;
+    }
+}
+
+
+====================================================================================
+
+
+package com.mycompany.folhadepagamento;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Assalariado extends Funcionario {
+    double salario;
+    
+    public Assalariado (String nome, String matricula, double salario){
+        super (nome, matricula);
+        this.salario = salario;
+    }
+    
+    @Override
+    public double vencimentos (){
+        return this.salario;
+    }
+}
+
+
+=========================================================================================
+
+
+package com.mycompany.folhadepagamento;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Horario extends Funcionario{
+    double ht;
+    double salario;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Horario (String nome, String matricula, double salario){
+        super (nome, matricula);
+        this.salario = salario;
+    }
+    
+    @Override
+    public double vencimentos (){
+        this.setHoras();
+        if (ht > 40){
+            return this.salario + ((ht - 40)*(this.salario/40)*1.5);
+        }
+        return this.salario;
+    }
+    
+    public void setHoras (){
+        System.out.println("Número de horas trabalhadas na semana de "+this.nome);
+        this.ht = entra.nextDouble();
+    }
+    
+}
+
+
+===================================================================================================
+
+
+package com.mycompany.folhadepagamento;
+import java.util.Scanner;
+/**
+ *
+ * @author Belmont
+ */
+public class Vendas extends Funcionario {
+    
+    double totalVendas;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Vendas (String nome, String matricula){
+        super (nome, matricula);
+    }
+    
+    @Override
+    public double vencimentos (){
+        this.setVendas();
+        return this.totalVendas * 0.05;
+    }
+    
+    public void setVendas (){
+        System.out.println("Total de vendas na semana de "+this.nome);
+        this.totalVendas = entra.nextDouble();
+    }
+    
+    
+}
+
+
+========================================================================================
+
+
+package com.mycompany.folhadepagamento;
+import java.util.Scanner;
+/**
+ *
+ * @author Belmont
+ */
+public class Comissionado extends Funcionario {
+    double totalVendas;
+    double salario;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public Comissionado (String nome, String matricula, double salario){
+        super (nome, matricula);
+        this.salario = salario;
+    }
+    
+    public void setVendas (){
+        System.out.println("Total de vendas na semana de "+this.nome);
+        this.totalVendas = entra.nextDouble();
+    }
+    
+    @Override
+    public double vencimentos (){
+        this.setVendas();
+        return this.totalVendas * 0.05 + this.salario;
+    }
+}
+
+
+============================================================================================
+
+
+package com.mycompany.folhadepagamento;
+
+/**
+ *
+ * @author Belmont
+ */
+public interface Recebiveis {
+    public double vencimentos ();
+    
+    public String getNome ();
+    
+    public String getMatricula();
+    
+    public void setVenc (double x);
+    
+    public double getVenc();
+}
+
+
+==============================================================================================
+
+
+Maria matricula 123    vencimentos: 2000.0
+Joana matricula 3221    vencimentos: 2500.0
+Sandra matricula 4561    vencimentos: 3437.5
+Jacira matricula 3625    vencimentos: 4085.0
+Cláudia matricula 7852    vencimentos: 2500.0
+Rosa matricula 4132    vencimentos: 3000.0
+Ana matricula 2235    vencimentos: 4300.0
+Jacqueline matricula 6467    vencimentos: 5250.0
+ ---------------------------------------------------------------------------------------
+Total da Folha  ---> 27072.5
+
+
+================================================================================================
+
