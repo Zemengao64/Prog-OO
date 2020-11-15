@@ -1,0 +1,93 @@
+package com.mycompany.excecoes;
+
+import java.util.ArrayList;
+
+/**
+ *
+ * @author Belmont
+ */
+public class TestaExcecoes {
+    public static void main (String [] args){
+        double x, y, aux;
+        String s;
+        Operacoes op = new Operacoes();
+        ArrayList <String> z = new ArrayList ();
+        int somaZ = 0;
+        
+        /* A exceção IllegalArgumentException ocorre quando algum parâmetro dentro da lógica de programação
+        assume um valor incomaptível com o esperado, não consistindo entretanto um erro que aborte a execução
+        do programa. è uma situação que pode se contornada com checagens na lógica de programação.  
+        Essa é uma exceção o que deve ser lançada pelo programador 
+        */
+        System.out.println("Tratando IllegalArgumentException ");
+        x = 2;
+        y = -2.5;
+        for (int i =0; i<3 ; i++){
+            try{
+                aux = op.soma(x, y);
+                s = Double.toString(aux);
+                z.add(s) ;   
+            }
+            catch(IllegalArgumentException e){
+                System.out.println(e.getMessage());
+            }
+            finally{
+                y = y + 0.5;
+            }
+        }
+        
+        /* NumberFormatException ocorre quando se tenta converter uma String para um
+        tipo numérico incompatível.
+        */
+        System.out.println();
+        System.out.println("Tratando NumberFormatException");
+        for (String st:z){
+            try{
+                somaZ = somaZ + Integer.parseInt(st);
+            }
+            catch(NumberFormatException e){
+                System.out.println ("O número não é inteiro ");
+            }
+        }
+
+    }
+}
+
+===============================
+
+package com.mycompany.excecoes;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Operacoes {
+    
+    
+    public double soma (double x, double y){
+        if ((x + y)<0){
+            throw new IllegalArgumentException("A soma de "+x+" e "+y+" é um número negativo");
+        }
+        else {
+            System.out.println ("Soma de "+x+" com "+y+" é: "+(x+y));
+            return (x+y);
+        }
+    }
+}
+
+==============================
+
+Tratando IllegalArgumentException 
+A soma de 2.0 e -2.5 é um número negativo
+Soma de 2.0 com -2.0 é: 0.0
+Soma de 2.0 com -1.5 é: 0.5
+
+Tratando NumberFormatException
+O número não é inteiro 
+O número não é inteiro 
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time:  4.039 s
+Finished at: 2020-11-15T17:37:08-03:00
+------------------------------------------------------------------------
