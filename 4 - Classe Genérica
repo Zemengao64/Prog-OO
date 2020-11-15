@@ -1,0 +1,121 @@
+package com.mycompany.classegenerica4.Principal;
+
+import com.mycompany.classegenerica4.Par;
+import java.util.*;
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        String s;
+        Integer i;
+        Double d;
+        Float f;
+        
+        Par p = new Par();
+
+        
+        ArrayList <Par> vetor = new ArrayList();
+        
+        Scanner entra = new Scanner (System.in);
+        System.out.println("Entre uma string ");
+        s = entra.next();
+        
+        System.out.println("Entre um inteiro ");
+        i = entra.nextInt();
+
+        p = new Par (s,i);
+        vetor.add(p);
+        
+        System.out.println("Entre um double ");
+        d = entra.nextDouble();
+        
+        System.out.println("Entre um float ");
+        f = entra.nextFloat();
+        
+        p = new Par (d,f);
+        vetor.add(p);
+        
+        System.out.println("Entre uma string ");
+        s = entra.next();
+        
+        System.out.println("Entre um double ");
+        d = entra.nextDouble();
+        
+        p = new Par (s,d);
+        vetor.add(p);
+        
+        for (Par par : vetor){
+            System.out.println(par.getTipoF()+"  e  "+par.getTipoS());
+        }
+        
+    }
+}
+
+============================================================================
+
+package com.mycompany.classegenerica4;
+
+
+
+/**
+ *
+ * @author Belmont
+ */
+public class Par <F,S> {
+    F tipoF;
+    S tipoS;
+    
+    public Par (F x, S y){
+        this.tipoF = x;
+        this.tipoS = y;
+    }
+    
+    public Par (){
+        
+    }
+    
+    public void setTipoF (F x){
+        this.tipoF = x;
+    }
+    
+    public void setTipoS (S x){
+        this.tipoS = x;
+    }
+    
+    public F getTipoF(){
+        return this.tipoF;
+    }
+    
+    public S getTipoS(){
+        return this.tipoS;
+    }
+    
+}
+
+======================================================================
+
+Entre uma string 
+ze
+Entre um inteiro 
+2
+Entre um double 
+3,2
+Entre um float 
+6,3
+Entre uma string 
+tonho
+Entre um double 
+6,1
+
+
+ze  e  2
+3.2  e  6.3
+tonho  e  6.1
+------------------------------------------------------------------------
+BUILD SUCCESS
+------------------------------------------------------------------------
+Total time:  43.046 s
+Finished at: 2020-11-15T01:01:40-03:00
+------------------------------------------------------------------------
