@@ -1,0 +1,87 @@
+package com.mycompany.diasdasemana4.Principal;
+import com.mycompany.diasdasemana4.DiaDaSemana;
+import java.util.Scanner;
+/**
+ *
+ * @author Belmont
+ */
+public class Semana {
+    public static void main (String [] args){
+        int esc;
+        
+        Scanner entra = new Scanner(System.in);
+        
+        while (true){
+            int i=0;
+            System.out.println("ESCOLHA:");
+            for (DiaDaSemana d : DiaDaSemana.values()){
+                i++;
+                System.out.println("<"+i+"> "+d.toString());
+            } 
+            
+            esc = entra.nextInt();
+            for (DiaDaSemana d : DiaDaSemana.values()){
+                if (d.ordinal() == (esc-1)){
+                    if (d.ehDiaUtil()){
+                        System.out.println(d.toString()+" é dia útil");                      
+                    }
+                    else{
+                        System.out.println(d.toString()+" NÃO é dia útil");     
+                    }
+                    break;
+                }
+            }
+            
+        }
+    }
+}
+
+================================================================================
+
+package com.mycompany.diasdasemana4;
+
+/**
+ *
+ * @author Belmont
+ */
+public enum DiaDaSemana {
+    DOM, SEG, TER, QUA, QUI, SEX, SAB;
+    
+    public boolean ehDiaUtil(){
+        if (this.ordinal()>0 && this.ordinal() < 6) return true;
+        else return false;
+    }
+}
+
+=================================================================================
+
+ESCOLHA:
+<1> DOM
+<2> SEG
+<3> TER
+<4> QUA
+<5> QUI
+<6> SEX
+<7> SAB
+1
+DOM NÃO é dia útil
+ESCOLHA:
+<1> DOM
+<2> SEG
+<3> TER
+<4> QUA
+<5> QUI
+<6> SEX
+<7> SAB
+7
+SAB NÃO é dia útil
+ESCOLHA:
+<1> DOM
+<2> SEG
+<3> TER
+<4> QUA
+<5> QUI
+<6> SEX
+<7> SAB
+2
+SEG é dia útil
