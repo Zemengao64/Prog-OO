@@ -1,0 +1,198 @@
+package com.mycompany.banco5.Principal;
+
+import com.mycompany.banco5.ContaCorrente;
+import com.mycompany.banco5.EntraNoTeclado;
+import java.util.*;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        ContaCorrente cc = new ContaCorrente();
+        EntraNoTeclado et = new EntraNoTeclado();
+        boolean flag = true;
+        boolean flag2;
+        int dec = 0;
+        float val;
+        
+        while (flag){
+            System.out.println("------------------ MENU ---------------------");
+            System.out.println("<1> DEPOSITAR VALORES EM CC");
+            System.out.println("<2> SACAR VALORES DA CC");
+            System.out.println("<3> ALERAR LIMITE DO CHEQUE ESPECIAL");
+            System.out.println("<4> MOSTRAR STATUS DA CONTA ");
+            System.out.println("<9> FIM ");
+            System.out.println("---------------------------------------------");
+            System.out.println();
+            
+            
+            dec = et.entraInt();
+                
+            if (dec == 1){
+                System.out.println("Entre o valor a ser depositado: ");
+                val = et.entraFloat();
+                try{
+                    cc.depositar(val);
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            
+            if (dec == 2){
+                System.out.println("Entre o valor a ser sacado: ");
+                val = et.entraFloat();
+                try{
+                    cc.sacar(val);
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            
+            if (dec == 3){
+                System.out.println("Entre o valor do novo limite: ");
+                val = et.entraFloat();
+                try{
+                    cc.setValorLimite(val);
+                }
+                catch (IllegalArgumentException e){
+                    System.out.println(e.getMessage());
+                }
+            }
+            
+            if (dec == 4){
+                cc.mostraCC();
+            }
+            
+            if (dec == 9){
+                flag = false;
+            }
+        }
+    }
+}
+
+======================================================
+
+package com.mycompany.banco5;
+
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class ContaCorrente {
+    float limite;
+    float saldo;
+    float valorLimite;
+    String numConta;
+    
+    Scanner entra = new Scanner (System.in);
+    
+    public ContaCorrente(){
+        System.out.println("Entre o numero da CC: ");
+        this.numConta = entra.nextLine(); 
+        this.saldo = 0;
+        this.limite = 0;
+        this.valorLimite = 0;
+    }
+    
+    public void depositar (float valor){
+        if (valor < 0){
+            throw new IllegalArgumentException("Valor de depósito não pode ser negativo");
+        }
+        else{
+            this.saldo = this.saldo + valor;
+            this.limite = this.saldo + this.valorLimite;
+        }
+    }
+    
+    public void sacar (float valor){
+        if (valor < 0){
+            throw new IllegalArgumentException("Valor de saque não pode ser negativo");
+        }
+        if (this.limite < valor){
+            throw new IllegalArgumentException("O saque não foi efetuado por estar acima do limite disponível para sua conta");
+        }
+        else{
+            this.saldo = this.saldo - valor;
+            this.limite = this.saldo + this.valorLimite; 
+        }
+    }
+    
+    public void setValorLimite (float valor){
+        if (valor < 0){
+            throw new IllegalArgumentException("Valor Limite não pode ser negativo");
+        }
+        else {
+            this.valorLimite = valor;
+            this.limite = this.valorLimite + this.saldo;
+        }
+    }
+    
+    public void mostraCC (){
+        System.out.println("---------------------------------------------");
+        System.out.println("Conta número.......... "+this.numConta);
+        System.out.println("Saldo atual........... "+this.saldo);
+        System.out.println("Limite cheque especial "+this.valorLimite);
+        System.out.println("Limite para saque..... "+this.limite);
+        System.out.println("---------------------------------------------");
+    }
+}
+
+=================================================================================================
+
+package com.mycompany.banco5;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class EntraNoTeclado {
+    Scanner entra = new Scanner (System.in);
+    boolean flag;
+    int valInt = 0;
+    float valFloat = 0;
+    String s;
+    
+    public int entraInt (){
+        do{
+            flag = false;
+            try{
+                valInt = entra.nextInt();
+            }
+            catch (InputMismatchException e){
+                System.out.println("digite apenas valores entre 0 e 9");
+                flag = true; 
+                s = entra.next();
+            }
+        }while (flag);
+        return valInt;
+    }
+    
+    public float entraFloat (){
+        do{
+            flag = false;
+            try{
+                valFloat = entra.nextFloat();
+            }
+            catch (InputMismatchException e){
+                System.out.println("digite apenas valores numéricos e o ponto decimal");
+                flag = true;   
+                s = entra.next();
+            }
+        }while (flag);
+        return valFloat;
+    }
+    
+    public String entraString(){
+        s = entra.next();
+        return s;
+    }   
+}
