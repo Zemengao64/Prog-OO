@@ -1,0 +1,354 @@
+package com.mycompany.cliente5.Principal;
+
+import com.mycompany.cliente5.CadastroCliente;
+import com.mycompany.cliente5.Cliente;
+import com.mycompany.cliente5.EntraNoTeclado;
+
+
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        CadastroCliente cad = new CadastroCliente ();
+        EntraNoTeclado et = new EntraNoTeclado();
+        boolean flag = true;
+        int escolha;
+
+        
+        while (flag){
+            System.out.println("<1> PARA CADASTRAR CLIENTE");
+            System.out.println("<2> PARA BUSCAR CLIENTE");
+            System.out.println("<9> PARA FINALIZAR");
+            
+            escolha = et.entraInt();
+            
+            if (escolha == 1){
+                cad.inserirCliente();
+            }
+            
+            if (escolha == 2){
+                String rec, cpf;
+                System.out.println("DIGITE O CPF DO CLIENTE: ");
+                cpf = et.entraString();
+                cpf = et.entraString();
+                rec = cad.buscaCpf(cpf);
+                if (rec.compareTo("CLIENTE INEXISTENTE")==0){
+                    System.out.println("CLIENTE INEXISTENTE");
+                }
+                
+            }
+            
+            if (escolha == 9) flag = false;
+        }
+        
+    }
+}
+
+==================================================================================
+
+package com.mycompany.cliente5;
+
+import static java.lang.Character.toChars;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class Cliente {
+    EntraNoTeclado et = new EntraNoTeclado ();
+    private String nome;
+    private String cpf;
+    private String telefone;
+    private String endereco;
+    Scanner entra = new Scanner (System.in);
+
+    
+    public Cliente(){
+        this.setNovoCliente();
+    }
+    
+    public String getNome(){
+        return this.nome;
+    }
+    
+    public String getCpf(){
+        return this.cpf;
+    }
+    
+    public String getTelefone(){
+        return this.telefone;
+    }
+    
+    public String getEndereco(){
+        return this.endereco;
+    }
+    
+    public void setNome(){
+        String invalidos[] = {",",":","?","/","]","}","[","{","=","+","-","_",")","(","*","&","%","$","#","@","!","'","1","2","3","4","5","6","7","8","9","0"};
+        System.out.println("ENTRE O NOME DO CLIENTE: ");
+        String teste = et.entraString();
+        try{
+            for (int i=0; i< invalidos.length; i++){
+                if (teste.contains(invalidos[i])) throw new DadoInvalidoException ("use apenas letras ");
+            }
+            this.nome = teste; 
+            System.out.println("-------------------------------------------");
+        }
+        catch (DadoInvalidoException e){
+            System.out.println(e.getMessage());
+            System.out.println("-------------------------------------------");
+            this.setNome();
+        }
+    }
+    
+    public void setCpf(){
+        char [] invalidos  = new char [85];  //  ROTINA PARA GERAR VETOR DE CARACTERES INVÁLIDOS
+        int z = 32;
+        for (int i=0; i<16; i++){
+            z = i+32;
+            invalidos[i] = (char)(z);
+        }
+        for (int i=16; i<85; i++){
+            z = i+42;
+            invalidos[i] = (char)(z);         // FIM DA ROTINA GERADORA DE CARACTERES INVALIDOS==================
+        }
+        
+        System.out.println("ENTRE O CPF DO CLIENTE: ");
+        String teste = et.entraString();
+        
+        char chars[] = teste.toCharArray();      // ROTINA DE BUSCA DE CARACTERE INVALIDO NA STRING DIGITADA
+        try{
+            for (int i = 0; i<chars.length; i++ ){
+                for (int j = 0; j<invalidos.length; j++){
+                    if (chars [i] == invalidos [j]) throw new DadoInvalidoException ("use apenas numerais ");
+                }
+            }
+            this.cpf = teste;
+            System.out.println("-------------------------------------------");
+        }                                          // FIM DA ROTINA DE BUSCA DE CARACTERE INVÁLIDO NA STRING DIGITADA ==================
+        catch (DadoInvalidoException e){
+            System.out.println(e.getMessage());
+            System.out.println("-------------------------------------------");
+            this.setCpf();
+        }
+    }
+    
+    public void setTelefone(){
+        char [] invalidos  = new char [85];  //  ROTINA PARA GERAR VETOR DE CARACTERES INVÁLIDOS
+        int z = 32;
+        for (int i=0; i<16; i++){
+            z = i+32;
+            invalidos[i] = (char)(z);
+        }
+        for (int i=16; i<85; i++){
+            z = i+42;
+            invalidos[i] = (char)(z);         
+        }
+        invalidos [11] = '!';
+        invalidos [13] = '?';                // FIM DA ROTINA GERADORA DE CARACTERES INVALIDOS==================
+        
+        System.out.println("ENTRE O TELEFONE DO CLIENTE: ");
+        String teste = et.entraString();
+        
+        char chars[] = teste.toCharArray();      // ROTINA DE BUSCA DE CARACTERE INVALIDO NA STRING DIGITADA
+        try{
+            for (int i = 0; i<chars.length; i++ ){
+                for (int j = 0; j<invalidos.length; j++){
+                    if (chars [i] == invalidos [j]) throw new DadoInvalidoException ("use apenas numerais ou - e + ");
+                }
+            }
+            this.telefone = teste;
+            System.out.println("-------------------------------------------");
+        } 
+        catch (DadoInvalidoException e){
+            System.out.println(e.getMessage());
+            System.out.println("-------------------------------------------");
+            this.setTelefone();
+            
+        }
+    }
+    
+    public void setEndereco(){
+        String invalidos[] = {"?","]","}","[","{","=","+","-","_","*","&","%","$","#","@","!","'"};
+        System.out.println("ENTRE O ENDEREÇO DO CLIENTE: ");
+        String teste = et.entraString();
+        try{
+            for (int i=0; i< invalidos.length; i++){
+                if (teste.contains(invalidos[i])) throw new DadoInvalidoException ("Caracter(es) inválido(s) detectado(s) no endereço ");
+            }
+            this.endereco = teste;  
+            System.out.println("-------------------------------------------");
+        }
+        catch (DadoInvalidoException e){
+            System.out.println(e.getMessage());
+            System.out.println("-------------------------------------------");
+            this.setEndereco();
+            
+        } 
+
+    } 
+    
+    private void setNovoCliente (){
+        this.setNome();
+        this.setCpf();
+        this.setTelefone();
+        this.setEndereco();
+    }
+}
+
+=====================================================================================
+
+package com.mycompany.cliente5;
+
+/**
+ *
+ * @author Belmont
+ */
+public class CadastroCliente {
+    EntraNoTeclado et = new EntraNoTeclado ();
+    Cliente [] cadastro = new Cliente [10];
+    Cliente c;
+    
+    static int ind =0;
+    
+    public String buscaCpf(String cpf){
+        int ii=0;
+        try{
+            for (int i=0; i<ind; i++){
+                ii = i;
+                if (cadastro[i].getCpf().compareTo(cpf)==0) throw new ClienteJaExistenteException ("CLIENTE JA CADASTRADO");
+            }
+            throw new ClienteInexistenteException(); 
+        }
+        catch (ClienteJaExistenteException e) {
+            System.out.println(e.getMessage()+" COM O NOME DE: "+cadastro[ii].getNome());
+            return cadastro[ii].getCpf();
+        }
+        catch (ClienteInexistenteException e){
+            return e.getMessage();
+        }
+        
+    }
+    
+    public void inserirCliente (){
+        String cpf;
+        c = new Cliente();
+        cpf = c.getCpf();
+        if (cpf.compareTo(this.buscaCpf(cpf))!=0){
+            try{
+                if (ind==10) throw new RepositorioException();
+                else{
+                    cadastro [ind] = c;
+                    ind++;
+                    System.out.println("CLIENTE CADASTRADO COM SUCESSO");
+                }
+            }
+            catch (RepositorioException e){ 
+                System.out.println (e.getMessage());
+            }
+        }
+    } 
+}
+
+============================================================================================
+
+package com.mycompany.cliente5;
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+/**
+ *
+ * @author Belmont
+ */
+public class EntraNoTeclado {
+    Scanner entra = new Scanner (System.in);
+    boolean flag;
+    int valInt = 0;
+    float valFloat = 0;
+    String s;
+    
+    public int entraInt (){
+        do{
+            flag = false;
+            try{
+                valInt = entra.nextInt();
+            }
+            catch (InputMismatchException e){
+                System.out.println("digite apenas valores entre 0 e 9");
+                flag = true; 
+                s = entra.nextLine();
+            }
+        }while (flag);
+        return valInt;
+    }
+    
+    public float entraFloat (){
+        do{
+            flag = false;
+            try{
+                valFloat = entra.nextFloat();
+            }
+            catch (InputMismatchException e){
+                System.out.println("digite apenas valores numéricos e o ponto decimal");
+                flag = true;   
+                s = entra.nextLine();
+            }
+        }while (flag);
+        return valFloat;
+    }
+    
+    public String entraString(){
+        s = null;
+        s = entra.nextLine();
+        return s;
+    }   
+}
+
+
+=============================================================================================
+
+package com.mycompany.cliente5;
+
+/**
+ *
+ * @author Belmont
+ */
+public class ClienteInexistenteException extends ArrayIndexOutOfBoundsException  {
+    public ClienteInexistenteException (){
+        super ("CLIENTE INEXISTENTE");
+    }
+}
+
+==============================================================================================
+
+public class ClienteJaExistenteException extends RuntimeException {
+    public ClienteJaExistenteException (String message){
+        super (message);
+    }
+}
+
+=============================================================================================
+
+public class DadoInvalidoException extends Exception {
+    public DadoInvalidoException (String message){
+        super (message);
+    }
+}
+
+==============================================================================================
+
+package com.mycompany.cliente5;
+
+/**
+ *
+ * @author zemen
+ */
+public class RepositorioException extends Exception{
+    public RepositorioException (){
+        super ("CADASTRO CHEIO");
+    }
+}
