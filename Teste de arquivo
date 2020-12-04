@@ -1,0 +1,118 @@
+package com.mycompany.testearquivos;
+import java.io.*;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+/**
+ *
+ * @author Belmont
+ */
+public class Bichos {
+    private String nome;
+    private String tipo;
+    private int peso;
+    Scanner en = new Scanner (System.in);
+    
+    public Bichos (){
+        
+    }
+    
+    public Bichos (String nome, String tipo, int peso){
+        this.nome = nome;
+        this.tipo = tipo;
+        this.peso = peso;
+    }
+    
+    
+    public static Bichos recupera (){
+      
+     try {
+            FileInputStream fs = new FileInputStream ("bichos.ze");
+            ObjectInputStream  obj = new ObjectInputStream (fs);
+            while (true){
+                Bichos var = (Bichos) obj.readObject();
+                obj.close();
+                return var;
+            }
+        }
+        catch  (FileNotFoundException   e){
+            System.out.println("Arquivo não existe");
+        }
+        catch (EOFException  e){
+            System.out.println("fim do arquivo");
+        }
+        catch  (IOException   e){
+            System.out.println("erro");
+        }
+        
+        catch (ClassNotFoundException ex) {
+            Logger.getLogger(Bichos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+    
+    public static void grava (Bichos b){
+        try {
+            FileOutputStream fs = new FileOutputStream ("bichos.ze");
+            ObjectOutputStream  obj = new ObjectOutputStream (fs);
+            obj.writeObject ( b);
+            obj.flush();
+            obj.close();
+        }
+        catch  (FileNotFoundException   e){
+            System.out.println("Arquivo não existe");
+        }
+        catch  (IOException   e){
+            System.out.println("erro");
+        }
+        
+    }
+    
+    public void imprimeBichos (Bichos b){
+        System.out.println(b.nome+ "  "+b.tipo+"  "+b.peso);       
+    }
+}
+
+
+-----------------------------------------------------------
+
+package com.mycompany.testearquivos;
+import java.util.Scanner;
+import java.io.*;
+/**
+ *
+ * @author Belmont
+ */
+public class Principal {
+    public static void main (String [] args){
+        Bichos bicho = new Bichos ();
+        Scanner en = new Scanner (System.in);
+        int dec = 0;
+        String nome, tipo;
+        int peso;
+
+        while (dec != 9){
+        System.out.println ("<1> cadastra");
+        System.out.println ("<2> recupera");
+        dec = en.nextInt();
+        
+            if (dec == 1){
+                nome = en.nextLine();
+                System.out.println("nome");
+                nome = en.nextLine();
+                System.out.println("tipo");
+                tipo = en.nextLine();
+                System.out.println("peso");
+                peso = en.nextInt();
+                bicho = new Bichos();
+                Bichos.grava(bicho);
+            }
+            if (dec == 2){
+                bicho = Bichos.recupera();
+                bicho.imprimeBichos(bicho);
+                
+            }
+            
+        }
+    }
+}
